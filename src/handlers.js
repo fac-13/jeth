@@ -4,6 +4,7 @@ const filter = require('./logic');
 const request = require('request');
 const https = require('https');
 const http = require('http');
+const querystring = require('querystring');
 
 const staticHandler = (response, filepath) => {
     const extension = filepath.split('.')[1];
@@ -27,22 +28,28 @@ const staticHandler = (response, filepath) => {
 }
 
 const apiHandler = (response, url) => {
-    // querystring.parse(input)['/suggest/?q'].toLowerCase().trim();
     // THIS IS WHERE YOU SHOULD MAKE A REQUEST TO THE EXTERNAL API USING REQUEST - get the DATA
     // AND THEN LINK IT INTO THE LOGIC FILTER -- filter(DATA)
     // AND THEN RESPONSE.END(FILTERED DATA)
+    let query = (querystring.parse(url)['/api/?q']).toLowerCase().trim();
 
     const options = {
         method: "GET",
-        uri: "https://jobs.github.com/positions.json?description=javascript&location=sf&full_time=true"
+        uri: `https://jobs.github.com/positions.json?location=${query}`
     }
     request(options, function (err, res, body) {
         if (err) {
             console.log(err);
         } else {
-            let result = filter(JSON.parse(body));
-            response.writeHead(200, { 'content-type': 'application/json' });
-            response.end(JSON.stringify(result));
+            let bod = JSON.parse(body);
+            if (bod.length == 0) {
+                response.writeHead(200, { 'content-type': 'text/html' });
+                response.end("<h1> There were no results found</h1>");
+            } else {
+                let result = filter(bod);
+                response.writeHead(200, { 'content-type': 'application/json' });
+                response.end(JSON.stringify(result));
+            }
         }
     });
 }

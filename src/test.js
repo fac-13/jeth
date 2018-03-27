@@ -36,7 +36,7 @@ test('check status code is 404', (t) => {
 
 test('Check the response back from API is an array', (t) => {
     supertest(router)
-        .get("/api/london")
+        .get("/api/?q=london")
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -46,4 +46,17 @@ test('Check the response back from API is an array', (t) => {
         });
 });
 
+
+
+test('bad url - no results found', (t) => {
+    supertest(router)
+        .get("/api/?q=asdfasdkjfh")
+        .expect(200)
+        .expect('Content-Type', /html/)
+        .end((err, res) => {
+            t.error(err)
+            t.equal(res.text, "<h1> There were no results found</h1>", 'bad url - no results found');
+            t.end();
+        });
+});
 // --- TESTING FOR THE LOGIC FUNCTIONS
