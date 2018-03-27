@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const { filter } = require('./logic');
+const filter = require('./logic');
 const request = require('request');
+const https = require('https');
+const http = require('http');
 
 const staticHandler = (response, filepath) => {
     const extension = filepath.split('.')[1];
@@ -25,12 +27,24 @@ const staticHandler = (response, filepath) => {
 }
 
 const apiHandler = (response, url) => {
+    // querystring.parse(input)['/suggest/?q'].toLowerCase().trim();
     // THIS IS WHERE YOU SHOULD MAKE A REQUEST TO THE EXTERNAL API USING REQUEST - get the DATA
     // AND THEN LINK IT INTO THE LOGIC FILTER -- filter(DATA)
     // AND THEN RESPONSE.END(FILTERED DATA)
-    // let result = logic.searchQuery(url);
-    // response.writeHead(200, {'content-type': 'application/json'});
-    // response.end(JSON.stringify(result));
+
+    const options = {
+        method: "GET",
+        uri: "https://jobs.github.com/positions.json?description=javascript&location=sf&full_time=true"
+    }
+    request(options, function (err, res, body) {
+        if (err) {
+            console.log(err);
+        } else {
+            let result = filter(JSON.parse(body));
+            response.writeHead(200, { 'content-type': 'application/json' });
+            response.end(JSON.stringify(result));
+        }
+    });
 }
 
 
