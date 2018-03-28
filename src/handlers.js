@@ -39,7 +39,8 @@ const apiHandler = (response, url) => {
     }
     request(options, function (err, res, body) {
         if (err) {
-            // THIS NEEDS TO RETURN A 505 HEADER BACK TO FRONT END
+            response.writeHead(500, { 'Content-Type': 'text/html' });
+            response.end("<h1> There was an error on our end, try again later</h1>");
             console.log(err);
         } else {
             let bod = JSON.parse(body);
