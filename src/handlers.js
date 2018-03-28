@@ -45,11 +45,11 @@ const apiHandler = (response, url) => {
       response.end();
     } else {
       const bod = JSON.parse(body);
+      const result = filter(bod);
       if (bod.length === 0) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.end('<h1> There were no results found</h1>');
+        response.end(JSON.stringify(result));
       } else {
-        const result = filter(bod);
         response.writeHead(200, { 'Content-Type': 'application/json' });
         response.end(JSON.stringify(result));
       }

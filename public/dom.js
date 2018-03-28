@@ -1,4 +1,5 @@
 (function () {
+  const alert = document.querySelector('.alert');
   const fetch = function (url, callback) {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -7,7 +8,7 @@
         callback(response);
       } else if (xhr.readyState === 4 && xhr.status === 500) {
         const main = document.querySelector('.main');
-        const alert = document.querySelector('.alert');
+
         const alertHead = document.createElement('h1');
         const alertText = document.createTextNode('Oopsy doodle, there has been a problem');
         const bod = document.querySelector('.body');
@@ -39,6 +40,7 @@
   }
 
   submitButton.addEventListener('click', (e) => {
+    console.log('submit executed');
     e.preventDefault();
     fetch(buildURL(), displayJobs);
   });
@@ -52,30 +54,39 @@
 
   // ---- CALLBACK FUNCTION
   const displayJobs = function (arr) {
-    arr.forEach((obj) => {
-      const jobs = document.querySelector('.jobs');
-      const job = document.createElement('section');
-      const header = document.createElement('a');
-      header.setAttribute('href', obj.url);
-      const contentloc = document.createElement('p');
-      const contenttyp = document.createElement('p');
-      const contentcom = document.createElement('p');
+    console.log(`arr:${arr}`);
+    if (arr.length === 0) {
+      while (alert.firstChild) {
+        alert.removeChild(alert.firstChild);
+      }
+      const noresults = document.createTextNode('Sorry there are no results');
+      alert.appendChild(noresults);
+    } else {
+      arr.forEach((obj) => {
+        const jobs = document.querySelector('.jobs');
+        const job = document.createElement('section');
+        const header = document.createElement('a');
+        header.setAttribute('href', obj.url);
+        const contentloc = document.createElement('p');
+        const contenttyp = document.createElement('p');
+        const contentcom = document.createElement('p');
 
-      const headText = document.createTextNode(obj.title);
-      const contloc = document.createTextNode(obj.location);
-      const conttyp = document.createTextNode(obj.type);
-      const contcom = document.createTextNode(obj.company);
+        const headText = document.createTextNode(obj.title);
+        const contloc = document.createTextNode(obj.location);
+        const conttyp = document.createTextNode(obj.type);
+        const contcom = document.createTextNode(obj.company);
 
-      contentloc.appendChild(contloc);
-      contenttyp.appendChild(conttyp);
-      contentcom.appendChild(contcom);
-      header.appendChild(headText);
+        contentloc.appendChild(contloc);
+        contenttyp.appendChild(conttyp);
+        contentcom.appendChild(contcom);
+        header.appendChild(headText);
 
-      job.appendChild(header);
-      job.appendChild(contentloc);
-      job.appendChild(contenttyp);
-      job.appendChild(contentcom);
-      jobs.appendChild(job);
-    });
+        job.appendChild(header);
+        job.appendChild(contentloc);
+        job.appendChild(contenttyp);
+        job.appendChild(contentcom);
+        jobs.appendChild(job);
+      });
+    }
   };
 }());
