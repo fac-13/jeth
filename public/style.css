@@ -1,0 +1,58 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  /* border:  1px solid black; */
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/****body styles ****/
+
+body {
+  margin: 2rem;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  font-family: futura, sans-serif;
+  background-color: rgba(7, 97, 125, 0.2);
+  color: #2E383F;
+}
+
+.innerWrapper {
+  max-width: 20rem;
+  margin: 5rem auto 0;
+}
+
+.input__field {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: whitesmoke;
+}
+
+.input__button {
+  font-weight: 700;
+  color: whitesmoke;
+  padding: 0.5rem;
+  background-color: #07617D;
+  border: none;
+}
+
+.jobs {
+    padding: 2rem 0;
+}
+
+.jobs section{
+  background-color: rgba(7, 97, 125, 0.3);
+  margin-bottom: 1rem;
+  padding: 2rem;
+}
+
+.jobs section a {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2E383F;
+}
