@@ -11,8 +11,6 @@
     <meta name="author" content="JETH: Jenath, Eade, Tammy, Helen" />
 </head>
 
-
-
 <body class="body">
     <div class="innerWrapper">
         <div class="alert">
@@ -21,12 +19,8 @@
         <main class="main">
             <h1 class="header__title">Type in your location</h1>
             <form>
-                <label for="js-input">Location</label>
-
-
-                <input id="js-input" class="input__field" required></input>
+                <input id="js-input" class="input__field" aria-label="location" required autocomplete="off"></input>
                 <button id="js-button" class="input__button">Submit</button>
-
             </form>
             <section class="jobs"></section>
         </main>
