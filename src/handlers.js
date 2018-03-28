@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const filter = require('./logic');
+const{ filter } = require('./logic');
 const request = require('request');
 const https = require('https');
 const http = require('http');
