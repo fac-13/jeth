@@ -16,8 +16,8 @@ const staticHandler = (response, filepath) => {
 
   fs.readFile(path.join(__dirname, '..', filepath), 'utf8', (error, file) => {
     if (error) {
-      response.writeHead(500, { "content-type": "text/html" });
-      response.end(file);
+      response.writeHead(500, { 'content-type': 'text/html' });
+      response.end();
     } else {
       response.writeHead(200, { 'content-type': extensionType[extension] });
       response.end(file);
@@ -39,21 +39,21 @@ const apiHandler = (response, url) => {
     uri: `https://jobs.github.com/positions.json?location=${query}`,
   };
   request(options, (err, res, body) => {
-    if (err) {
-      console.log(err);
-      response.writeHead(500, { 'Content-Type': 'text/html' });
-      response.end('<h1> There was an error on our end, try again later</h1>');
-    } else {
-      const bod = JSON.parse(body);
-      if (bod.length === 0) {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.end('<h1> There were no results found</h1>');
-      } else {
-        const result = filter(bod);
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(result));
-      }
-    }
+    // if (err) {
+    console.log(err);
+    response.writeHead(500, { 'Content-Type': 'text/html' });
+    response.end();
+    //     } else {
+    //       const bod = JSON.parse(body);
+    //       if (bod.length === 0) {
+    //         response.writeHead(200, { 'Content-Type': 'text/html' });
+    //         response.end('<h1> There were no results found</h1>');
+    //       } else {
+    //         const result = filter(bod);
+    //         response.writeHead(200, { 'Content-Type': 'application/json' });
+    //         response.end(JSON.stringify(result));
+    //       }
+    //     }
   });
 };
 

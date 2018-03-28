@@ -6,7 +6,17 @@
         const response = JSON.parse(xhr.responseText);
         callback(response);
       } else if (xhr.readyState === 4 && xhr.status === 500) {
-        const response = JSON.parse(xhr.responseText);
+        const main = document.querySelector('.main');
+        const alert = document.querySelector('.alert');
+        const alertHead = document.createElement('h1');
+        const alertText = document.createTextNode('Oopsy doodle, there has been a problem');
+        const bod = document.querySelector('.body');
+
+        while (alert.firstChild) {
+          alert.removeChild(alert.firstChild);
+        }
+        alertHead.appendChild(alertText);
+        alert.appendChild(alertHead);
       } else {
         console.log('XHR error', xhr.readyState);
       }
