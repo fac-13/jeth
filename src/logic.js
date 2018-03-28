@@ -16,7 +16,4 @@ const filter = (data) => {
     return filteredData;
 }
 
-// console.log(data);
-filter(dummy);
-
 module.exports = {filter};
