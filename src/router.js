@@ -5,7 +5,9 @@ const router = (request, response) => {
 
   if (url === '/') {
     staticHandler(response, 'public/index.html');
-  } else if (url.indexOf('public') !== -1) {
+  } else if (url === '/error') {
+    staticHandler(response, 'public/error.html');
+  }else if (url.indexOf('public') !== -1) {
     staticHandler(response, url);
   } else if (url.indexOf('api') !== -1) {
     apiHandler(response, url);

@@ -5,6 +5,8 @@
       if (xhr.readyState === 4 && xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
         callback(response);
+      } else if (xhr.readyState === 4 && xhr.status === 500) {
+        const response = JSON.parse(xhr.responseText);
       } else {
         console.log('XHR error', xhr.readyState);
       }
