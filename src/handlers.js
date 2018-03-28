@@ -46,7 +46,6 @@ const apiHandler = (response, url) => {
     } else {
       const bod = JSON.parse(body);
       const result = filter(bod);
-    
       if (bod.length === 0) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.end(JSON.stringify(result));

@@ -13,6 +13,7 @@ const filter = (data) => {
     filteredObj.url = obj.url;
     filteredData.push(filteredObj);
   });
+
   return filteredData;
 };
 

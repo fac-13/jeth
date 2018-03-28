@@ -64,7 +64,7 @@
   const displayJobs = function (arr) {
     while (alert.firstChild) {
         alert.removeChild(alert.firstChild);
-      }
+      }      
     if (arr.length === 0) { 
       const noresults = document.createTextNode('Sorry there are no results');
       alert.appendChild(noresults);
