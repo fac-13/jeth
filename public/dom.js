@@ -2,7 +2,6 @@
     // ---- XHR REQUEST
     var fetch = function (url, callback) {
         var xhr = new XMLHttpRequest();
-
         xhr.addEventListener("load", function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 console.log("fetch is working", url);
