@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const{ filter } = require('./logic');
+const { filter } = require('./logic');
 const request = require('request');
 const https = require('https');
 const http = require('http');
@@ -39,15 +39,17 @@ const apiHandler = (response, url) => {
     }
     request(options, function (err, res, body) {
         if (err) {
+            response.writeHead(500, { 'Content-Type': 'text/html' });
+            response.end("<h1> There was an error on our end, try again later</h1>");
             console.log(err);
         } else {
             let bod = JSON.parse(body);
             if (bod.length == 0) {
-                response.writeHead(200, { 'content-type': 'text/html' });
+                response.writeHead(200, { 'Content-Type': 'text/html' });
                 response.end("<h1> There were no results found</h1>");
             } else {
                 let result = filter(bod);
-                response.writeHead(200, { 'content-type': 'application/json' });
+                response.writeHead(200, { 'Content-Type': 'application/json' });
                 response.end(JSON.stringify(result));
             }
         }
