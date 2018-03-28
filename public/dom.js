@@ -2,11 +2,8 @@
     // ---- XHR REQUEST
     var fetch = function (url, callback) {
         var xhr = new XMLHttpRequest();
-        console.log(xhr.readyState);
-        console.log("status:" + xhr.status);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("fetch is working", url);
                 var response = JSON.parse(xhr.responseText);
                 callback(response);
             } else {
@@ -30,9 +27,6 @@
         return url;
     }
 
-    function displayJobs(response) {
-        console.log(response);
-    }
     submitButton.addEventListener("click", function (e) {
         e.preventDefault();
         fetch(buildURL(), displayJobs);
@@ -45,6 +39,8 @@
         }
     })
 
-
     // ---- CALLBACK FUNCTION
+    function displayJobs(response) {
+        console.log(response);
+    }
 })();
