@@ -11,25 +11,26 @@
     <meta name="author" content="JETH: Jenath, Eade, Tammy, Helen" />
 </head>
 
-<body>
-  <div class="innerWrapper">
 
-  <div class="problem">
 
-  </div>
-    <header class="header">
-        <h1 class="header__title">Type in your location</h1>
-        <form>
-            <input id="js-input" class="input__field" required></input>
-            <button id="js-button" class="input__button">Submit</button>
-        </form>
-    </header>
+<body class="body">
+    <div class="innerWrapper">
+        <div class="alert">
+        </div>
 
-    <!-- DOM MANIPULATE FUNCTIONS -->
-    <main>
-        <section class="jobs"></section>
-    </main>
-</div>
+        <main class="main">
+            <h1 class="header__title">Type in your location</h1>
+            <form>
+                <label for="js-input">Location</label>
+
+
+                <input id="js-input" class="input__field" required></input>
+                <button id="js-button" class="input__button">Submit</button>
+
+            </form>
+            <section class="jobs"></section>
+        </main>
+    </div>
     <script src="/public/dom.js" type="application/javascript"></script>
 </body>
 
