@@ -54,7 +54,7 @@
 
   // ---- CALLBACK FUNCTION
   const displayJobs = function (arr) {
-    console.log(`arr:${arr}`);
+    console.log(`arr:${arr[1].title}`);
     if (arr.length === 0) {
       while (alert.firstChild) {
         alert.removeChild(alert.firstChild);

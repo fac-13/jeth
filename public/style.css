@@ -5,6 +5,10 @@
   /* border:  1px solid black; */
 }
 
+html {
+  padding: 0;
+  margin: 0;
+}
 .clearfix:after {
   content: "";
   display: table;
@@ -14,14 +18,56 @@
 /****body styles ****/
 
 body {
-  margin: 2rem;
+  margin:0;
   padding: 0;
   text-rendering: optimizeLegibility;
   font-family: futura, sans-serif;
   background-color: rgba(7, 97, 125, 0.2);
-  color: #2E383F;
+  color: #2e383f;
 }
 
+.header__threelogos{
+display:flex;
+width: 10rem;
+  justify-content: space-between;
+}
+
+.header__logo svg{
+  fill: hsl(16, 100%, 66%);
+  animation-name: rotate;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+}
+
+.header__logo:nth-child(2) svg{
+   animation-duration: 6s;
+}
+
+.header__logo:nth-child(3){
+  animation-duration: 3s;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+
+
+.header__logo{
+  width: 3rem;
+
+}
+
+.alert {
+  margin-top: 3rem;
+}
 .innerWrapper {
   max-width: 20rem;
   margin: 5rem auto 0;
@@ -37,15 +83,15 @@ body {
   font-weight: 700;
   color: whitesmoke;
   padding: 0.5rem;
-  background-color: #07617D;
+  background-color: #07617d;
   border: none;
 }
 
 .jobs {
-    padding: 2rem 0;
+  padding: 2rem 0;
 }
 
-.jobs section{
+.jobs section {
   background-color: rgba(7, 97, 125, 0.3);
   margin-bottom: 1rem;
   padding: 2rem;
@@ -54,5 +100,5 @@ body {
 .jobs section a {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #2E383F;
+  color: #2e383f;
 }
