@@ -1,46 +1,69 @@
 (function () {
-    // ---- XHR REQUEST
-    var fetch = function (url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                callback(response);
-            } else {
-                console.log("XHR error", xhr.readyState);
-            }
-        };
-        xhr.open("GET", url, true);
-        xhr.send();
+  const fetch = function (url, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        callback(response);
+      } else {
+        console.log('XHR error', xhr.readyState);
+      }
+    };
+    xhr.open('GET', url, true);
+    xhr.send();
+  };
+
+  const inputField = document.querySelector('#js-input');
+  const submitButton = document.querySelector('#js-button');
+
+  // ---- EVENT LISTENER
+  // ADD EVENT LISTENER TO THE SUBMIT BUTTON, GRAB THE URL
+  // CALLS THE FETCH XHR REQUEST
+  // PASSES IN THE CALLBACK FUNCTION - DOM MANIPULATION
+  function buildURL() {
+    const userInput = inputField.value.toLowerCase().trim();
+    const url = `/api/?q=${userInput}`;
+    return url;
+  }
+
+  submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    fetch(buildURL(), displayJobs);
+  });
+
+  inputField.addEventListener('keypress', (e) => {
+    if (e.key == 'Enter') {
+      e.preventDefault();
+      fetch(buildURL(), displayJobs);
     }
+  });
 
-    var inputField = document.querySelector("#js-input");
-    var submitButton = document.querySelector("#js-button");
+  // ---- CALLBACK FUNCTION
+  const displayJobs = function (arr) {
+    arr.forEach((obj) => {
+      const jobs = document.querySelector('.jobs');
+      const job = document.createElement('section');
+      const header = document.createElement('a');
+      header.setAttribute('href', obj.url);
+      const contentloc = document.createElement('p');
+      const contenttyp = document.createElement('p');
+      const contentcom = document.createElement('p');
 
-    // ---- EVENT LISTENER
-    // ADD EVENT LISTENER TO THE SUBMIT BUTTON, GRAB THE URL
-    // CALLS THE FETCH XHR REQUEST
-    // PASSES IN THE CALLBACK FUNCTION - DOM MANIPULATION
-    function buildURL() {
-        var userInput = inputField.value.toLowerCase().trim();
-        var url = "/api/?q=" + userInput;
-        return url;
-    }
+      const headText = document.createTextNode(obj.title);
+      const contloc = document.createTextNode(obj.location);
+      const conttyp = document.createTextNode(obj.type);
+      const contcom = document.createTextNode(obj.company);
 
-    submitButton.addEventListener("click", function (e) {
-        e.preventDefault();
-        fetch(buildURL(), displayJobs);
+      contentloc.appendChild(contloc);
+      contenttyp.appendChild(conttyp);
+      contentcom.appendChild(contcom);
+      header.appendChild(headText);
+
+      job.appendChild(header);
+      job.appendChild(contentloc);
+      job.appendChild(contenttyp);
+      job.appendChild(contentcom);
+      jobs.appendChild(job);
     });
-
-    inputField.addEventListener("keypress", function (e) {
-        if (e.key == "Enter") {
-            e.preventDefault();
-            fetch(buildURL(), displayJobs);
-        }
-    })
-
-    // ---- CALLBACK FUNCTION
-    function displayJobs(response) {
-        console.log(response);
-    }
-})();
+  };
+}());
