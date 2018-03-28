@@ -28,6 +28,7 @@
 
   const inputField = document.querySelector('#js-input');
   const submitButton = document.querySelector('#js-button');
+  const jobs = document.querySelector('.jobs');
 
   // ---- EVENT LISTENER
   // ADD EVENT LISTENER TO THE SUBMIT BUTTON, GRAB THE URL
@@ -39,26 +40,32 @@
     return url;
   }
 
+  function clearJobs() {
+    while(jobs.firstChild) {
+        jobs.removeChild(jobs.firstChild);
+    }
+  }
+
   submitButton.addEventListener('click', (e) => {
-    console.log('submit executed');
+    clearJobs();
     e.preventDefault();
     fetch(buildURL(), displayJobs);
   });
 
   inputField.addEventListener('keypress', (e) => {
     if (e.key == 'Enter') {
-      e.preventDefault();
-      fetch(buildURL(), displayJobs);
+        clearJobs();
+        e.preventDefault();
+        fetch(buildURL(), displayJobs);
     }
   });
 
   // ---- CALLBACK FUNCTION
   const displayJobs = function (arr) {
-    console.log(`arr:${arr[1].title}`);
-    if (arr.length === 0) {
-      while (alert.firstChild) {
+    while (alert.firstChild) {
         alert.removeChild(alert.firstChild);
-      }
+      }      
+    if (arr.length === 0) { 
       const noresults = document.createTextNode('Sorry there are no results');
       alert.appendChild(noresults);
     } else {
@@ -71,10 +78,10 @@
         const contenttyp = document.createElement('p');
         const contentcom = document.createElement('p');
 
-        const headText = document.createTextNode(obj.title);
-        const contloc = document.createTextNode(obj.location);
-        const conttyp = document.createTextNode(obj.type);
-        const contcom = document.createTextNode(obj.company);
+        const headText = document.createTextNode("Job Title: " + obj.title);
+        const contloc = document.createTextNode("Location: " + obj.location);
+        const conttyp = document.createTextNode("Type: " + obj.type);
+        const contcom = document.createTextNode("Company: " + obj.company);
 
         contentloc.appendChild(contloc);
         contenttyp.appendChild(conttyp);

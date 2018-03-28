@@ -4,7 +4,6 @@ const dummy = require('./dummy');
 const filter = (data) => {
   // FILTER OUT DATA
   const filteredData = [];
-
   data.forEach((obj) => {
     const filteredObj = {};
     filteredObj.title = obj.title;
