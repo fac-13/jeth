@@ -2,7 +2,9 @@
     // ---- XHR REQUEST
     var fetch = function (url, callback) {
         var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", function () {
+        console.log(xhr.readyState);
+        console.log("status:" + xhr.status);
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 console.log("fetch is working", url);
                 var response = JSON.parse(xhr.responseText);
@@ -10,15 +12,38 @@
             } else {
                 console.log("XHR error", xhr.readyState);
             }
-        });
+        };
         xhr.open("GET", url, true);
         xhr.send();
     }
+
+    var inputField = document.querySelector("#js-input");
+    var submitButton = document.querySelector("#js-button");
 
     // ---- EVENT LISTENER
     // ADD EVENT LISTENER TO THE SUBMIT BUTTON, GRAB THE URL
     // CALLS THE FETCH XHR REQUEST
     // PASSES IN THE CALLBACK FUNCTION - DOM MANIPULATION
+    function buildURL() {
+        var userInput = inputField.value.toLowerCase().trim();
+        var url = "/api/?q=" + userInput;
+        return url;
+    }
+
+    function displayJobs(response) {
+        console.log(response);
+    }
+    submitButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        fetch(buildURL(), displayJobs);
+    });
+
+    inputField.addEventListener("keypress", function (e) {
+        if (e.key == "Enter") {
+            e.preventDefault();
+            fetch(buildURL(), displayJobs);
+        }
+    })
 
 
     // ---- CALLBACK FUNCTION

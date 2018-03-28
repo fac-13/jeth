@@ -16,4 +16,4 @@ const filter = (data) => {
     return filteredData;
 }
 
-module.exports = {filter};
+module.exports = { filter };
