@@ -1,46 +1,45 @@
 (function () {
-  // ---- XHR REQUEST
-  console.log('hello jenath');
   const fetch = function (url, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', () => {
+    xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log('fetch is working', url);
         const response = JSON.parse(xhr.responseText);
         callback(response);
       } else {
         console.log('XHR error', xhr.readyState);
       }
-    });
+    };
     xhr.open('GET', url, true);
     xhr.send();
   };
+
+  const inputField = document.querySelector('#js-input');
+  const submitButton = document.querySelector('#js-button');
 
   // ---- EVENT LISTENER
   // ADD EVENT LISTENER TO THE SUBMIT BUTTON, GRAB THE URL
   // CALLS THE FETCH XHR REQUEST
   // PASSES IN THE CALLBACK FUNCTION - DOM MANIPULATION
+  function buildURL() {
+    const userInput = inputField.value.toLowerCase().trim();
+    const url = `/api/?q=${userInput}`;
+    return url;
+  }
 
-  const example = [
-    {
-      title: 'Senior Software Engineer',
-      location: 'IRVINE',
-      type: 'Full Time',
-      company: 'Amare Global',
-      url: 'http://jobs.github.com/positions/d298fc26-23c8-11e8-93b7-7517af18f83b',
-    },
-    {
-      title: 'Senior Software Engineer',
-      location: 'IRVINE',
-      type: 'Full Time',
-      company: 'Amare Global',
-      url: 'http://jobs.github.com/positions/d298fc26-23c8-11e8-93b7-7517af18f83b',
-    },
-  ];
+  submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    fetch(buildURL(), displayJobs);
+  });
+
+  inputField.addEventListener('keypress', (e) => {
+    if (e.key == 'Enter') {
+      e.preventDefault();
+      fetch(buildURL(), displayJobs);
+    }
+  });
 
   // ---- CALLBACK FUNCTION
   const displayJobs = function (arr) {
-    console.log('display jobs triggered');
     arr.forEach((obj) => {
       const jobs = document.querySelector('.jobs');
       const job = document.createElement('section');
@@ -67,6 +66,4 @@
       jobs.appendChild(job);
     });
   };
-
-  displayJobs(example);
 }());

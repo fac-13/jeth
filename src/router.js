@@ -1,4 +1,3 @@
-const logic = require('./logic');
 const { staticHandler, apiHandler } = require('./handlers');
 
 const router = (request, response) => {
@@ -9,7 +8,6 @@ const router = (request, response) => {
   } else if (url.indexOf('public') !== -1) {
     staticHandler(response, url);
   } else if (url.indexOf('api') !== -1) {
-    console.log('search router reached');
     apiHandler(response, url);
   } else {
     response.writeHead(404, { 'content-type': 'text/plain' });

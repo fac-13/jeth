@@ -1,11 +1,11 @@
-const querystring = require("querystring");
-const dummy = require("./dummy");
+const querystring = require('querystring');
+const dummy = require('./dummy');
 
-const filter = data => {
+const filter = (data) => {
   // FILTER OUT DATA
   const filteredData = [];
   const filteredObj = {};
-  data.forEach(obj => {
+  data.forEach((obj) => {
     filteredObj.title = obj.title;
     filteredObj.location = obj.location;
     filteredObj.type = obj.type;
