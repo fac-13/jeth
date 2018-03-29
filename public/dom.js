@@ -13,9 +13,7 @@
         const alertText = document.createTextNode('Oopsy doodle, there has been a problem');
         const bod = document.querySelector('.body');
 
-        while (alert.firstChild) {
-          alert.removeChild(alert.firstChild);
-        }
+        clearChildren(alert);
         alertHead.appendChild(alertText);
         alert.appendChild(alertHead);
       } else {
@@ -40,21 +38,21 @@
     return url;
   }
 
-  function clearJobs() {
-    while(jobs.firstChild) {
-        jobs.removeChild(jobs.firstChild);
+  function clearChildren(parent) {
+    while(parent.firstChild) {
+        parent.removeChild(parent.firstChild);
     }
   }
 
   submitButton.addEventListener('click', (e) => {
-    clearJobs();
+    clearChildren(jobs);
     e.preventDefault();
     fetch(buildURL(), displayJobs);
   });
 
   inputField.addEventListener('keypress', (e) => {
     if (e.key == 'Enter') {
-        clearJobs();
+        clearChildren(jobs);
         e.preventDefault();
         fetch(buildURL(), displayJobs);
     }
@@ -62,9 +60,7 @@
 
   // ---- CALLBACK FUNCTION
   const displayJobs = function (arr) {
-    while (alert.firstChild) {
-        alert.removeChild(alert.firstChild);
-      }      
+    clearChildren(alert);   
     if (arr.length === 0) { 
       const noresults = document.createTextNode('Sorry there are no results');
       alert.appendChild(noresults);
