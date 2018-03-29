@@ -36,23 +36,23 @@
     return url;
   }
 
-  function clearJobs() {
-    while (jobs.firstChild) {
-      jobs.removeChild(jobs.firstChild);
+  function clearChildren(parent) {
+    while(parent.firstChild) {
+        parent.removeChild(parent.firstChild);
     }
   }
 
   submitButton.addEventListener('click', (e) => {
-    clearJobs();
+    clearChildren(jobs);
     e.preventDefault();
     fetch(buildURL(), displayJobs);
   });
 
   inputField.addEventListener('keypress', (e) => {
     if (e.key == 'Enter') {
-      clearJobs();
-      e.preventDefault();
-      fetch(buildURL(), displayJobs);
+        clearChildren(jobs);
+        e.preventDefault();
+        fetch(buildURL(), displayJobs);
     }
   });
 
@@ -71,7 +71,6 @@
       }
       alertHead.appendChild(alertText);
       alert.appendChild(alertHead);
-
     } else {
       console.log('NOT ERROR');
       while (alert.firstChild) {
