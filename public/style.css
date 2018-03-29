@@ -18,7 +18,7 @@ html {
 /****body styles ****/
 
 body {
-  margin:0;
+  margin: 0;
   padding: 0;
   text-rendering: optimizeLegibility;
   font-family: futura, sans-serif;
@@ -26,26 +26,28 @@ body {
   color: #2e383f;
 }
 
-.header__threelogos{
-display:flex;
-width: 10rem;
+h1 {
+  color:hsl(16, 100%, 66%)
+}
+.header__threelogos {
+  display: flex;
+  width: 10rem;
   justify-content: space-between;
 }
 
-.header__logo svg{
+.header__logo svg {
   fill: hsl(16, 100%, 66%);
   animation-name: rotate;
   animation-duration: 10s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-
 }
 
-.header__logo:nth-child(2) svg{
-   animation-duration: 6s;
+.header__logo:nth-child(2) svg {
+  animation-duration: 6s;
 }
 
-.header__logo:nth-child(3){
+.header__logo:nth-child(3) {
   animation-duration: 3s;
 }
 
@@ -58,11 +60,8 @@ width: 10rem;
   }
 }
 
-
-
-.header__logo{
+.header__logo {
   width: 3rem;
-
 }
 
 .alert {
@@ -91,14 +90,31 @@ width: 10rem;
   padding: 2rem 0;
 }
 
+
 .jobs section {
-  background-color: rgba(7, 97, 125, 0.3);
+
   margin-bottom: 1rem;
   padding: 2rem;
+
+  border: 10px solid hsla(200, 100%, 10%, 0.6)
 }
 
 .jobs section a {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #2e383f;
+  color: hsl(16, 100%, 66%);
+
+
+
+}
+
+@media screen and (min-width: 426px) {
+  .jobs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+  }
+  .innerWrapper {
+    max-width: 35rem;
+  }
 }

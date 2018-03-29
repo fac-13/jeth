@@ -1,8 +1,9 @@
-(function () {
+/* eslint-disable */
+(function() {
   const alert = document.querySelector('.alert');
-  const fetch = function (url, callback) {
+  const fetch = function(url, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
         callback(response);
@@ -39,33 +40,25 @@
   }
 
   function clearChildren(parent) {
-    while(parent.firstChild) {
-        parent.removeChild(parent.firstChild);
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
     }
   }
 
-  submitButton.addEventListener('click', (e) => {
+  submitButton.addEventListener('click', e => {
     clearChildren(jobs);
     e.preventDefault();
     fetch(buildURL(), displayJobs);
   });
 
-  inputField.addEventListener('keypress', (e) => {
-    if (e.key == 'Enter') {
-        clearChildren(jobs);
-        e.preventDefault();
-        fetch(buildURL(), displayJobs);
-    }
-  });
-
   // ---- CALLBACK FUNCTION
-  const displayJobs = function (arr) {
-    clearChildren(alert);   
-    if (arr.length === 0) { 
+  const displayJobs = function(arr) {
+    clearChildren(alert);
+    if (arr.length === 0) {
       const noresults = document.createTextNode('Sorry there are no results');
       alert.appendChild(noresults);
     } else {
-      arr.forEach((obj) => {
+      arr.forEach(obj => {
         const jobs = document.querySelector('.jobs');
         const job = document.createElement('section');
         const header = document.createElement('a');
@@ -74,10 +67,10 @@
         const contenttyp = document.createElement('p');
         const contentcom = document.createElement('p');
 
-        const headText = document.createTextNode("Job Title: " + obj.title);
-        const contloc = document.createTextNode("Location: " + obj.location);
-        const conttyp = document.createTextNode("Type: " + obj.type);
-        const contcom = document.createTextNode("Company: " + obj.company);
+        const headText = document.createTextNode('Job Title: ' + obj.title);
+        const contloc = document.createTextNode('Location: ' + obj.location);
+        const conttyp = document.createTextNode('Type: ' + obj.type);
+        const contcom = document.createTextNode('Company: ' + obj.company);
 
         contentloc.appendChild(contloc);
         contenttyp.appendChild(conttyp);
@@ -92,4 +85,4 @@
       });
     }
   };
-}());
+})();
