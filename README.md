@@ -1,4 +1,4 @@
-## Project
+## Project [![Build Status](https://travis-ci.org/fac-13/jeth.svg?branch=master)](https://travis-ci.org/fac-13/jeth)
 
 A job search application that checks the GitHub Jobs api and returns jobs based on a location the user searched, so you can look up about the current jobs in any area.
 
