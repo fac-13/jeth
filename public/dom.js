@@ -1,10 +1,10 @@
-(function () {
+/* eslint-disable */
+(function() {
+
   const alert = document.querySelector('.alert');
   const fetch = function (url, callback) {
-    console.log('fetch reached');
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
-      console.log('fetch ready');
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           const response = JSON.parse(xhr.responseText);
@@ -26,6 +26,7 @@
   const submitButton = document.querySelector('#js-button');
   const jobs = document.querySelector('.jobs');
 
+  inputField.focus()
   // ---- EVENT LISTENER
   // ADD EVENT LISTENER TO THE SUBMIT BUTTON, GRAB THE URL
   // CALLS THE FETCH XHR REQUEST
@@ -42,17 +43,17 @@
     }
   }
 
-  submitButton.addEventListener('click', (e) => {
+  submitButton.addEventListener('click', e => {
     clearChildren(jobs);
     e.preventDefault();
+    if(inputField.value){
     fetch(buildURL(), displayJobs);
+    }
   });
 
   inputField.addEventListener('keypress', (e) => {
     if (e.key == 'Enter') {
       clearChildren(jobs);
-      e.preventDefault();
-      fetch(buildURL(), displayJobs);
     }
   });
 
@@ -104,4 +105,4 @@
       }
     }
   };
-}());
+})();
