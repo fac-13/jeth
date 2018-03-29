@@ -1,21 +1,19 @@
 (function () {
   const alert = document.querySelector('.alert');
   const fetch = function (url, callback) {
+    console.log('fetch reached');
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        callback(response);
-      } else if (xhr.readyState === 4 && xhr.status === 500) {
-        const main = document.querySelector('.main');
-
-        const alertHead = document.createElement('h1');
-        const alertText = document.createTextNode('Oopsy doodle, there has been a problem');
-        const bod = document.querySelector('.body');
-
-        clearChildren(alert);
-        alertHead.appendChild(alertText);
-        alert.appendChild(alertHead);
+      console.log('fetch ready');
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          callback(null, response);
+        } else if (xhr.status === 500) {
+          callback(new TypeError('500 error'));
+        } else {
+          callback(new TypeError('error: ' + xhr.readyState));
+        }
       } else {
         console.log('XHR error', xhr.readyState);
       }
@@ -39,8 +37,8 @@
   }
 
   function clearChildren(parent) {
-    while(parent.firstChild) {
-        parent.removeChild(parent.firstChild);
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
     }
   }
 
@@ -52,44 +50,58 @@
 
   inputField.addEventListener('keypress', (e) => {
     if (e.key == 'Enter') {
-        clearChildren(jobs);
-        e.preventDefault();
-        fetch(buildURL(), displayJobs);
+      clearChildren(jobs);
+      e.preventDefault();
+      fetch(buildURL(), displayJobs);
     }
   });
 
   // ---- CALLBACK FUNCTION
-  const displayJobs = function (arr) {
-    clearChildren(alert);   
-    if (arr.length === 0) { 
-      const noresults = document.createTextNode('Sorry there are no results');
-      alert.appendChild(noresults);
+  const displayJobs = function (error, arr) {
+    console.log('REACHED');
+    if (error) {
+      const main = document.querySelector('.main');
+
+      const alertHead = document.createElement('h1');
+      const alertText = document.createTextNode('Oopsy doodle, there has been a problem');
+      const bod = document.querySelector('.body');
+
+      clearChildren(alert);
+      alertHead.appendChild(alertText);
+      alert.appendChild(alertHead);
     } else {
-      arr.forEach((obj) => {
-        const jobs = document.querySelector('.jobs');
-        const job = document.createElement('section');
-        const header = document.createElement('a');
-        header.setAttribute('href', obj.url);
-        const contentloc = document.createElement('p');
-        const contenttyp = document.createElement('p');
-        const contentcom = document.createElement('p');
+      console.log('NOT ERROR');
+      clearChildren(alert)
+      if (arr.length === 0) {
+        const noresults = document.createTextNode('Sorry there are no results');
+        alert.appendChild(noresults);
+      } else {
+        arr.forEach((obj) => {
+          const jobs = document.querySelector('.jobs');
+          const job = document.createElement('section');
+          const header = document.createElement('a');
+          header.setAttribute('href', obj.url);
+          const contentloc = document.createElement('p');
+          const contenttyp = document.createElement('p');
+          const contentcom = document.createElement('p');
 
-        const headText = document.createTextNode("Job Title: " + obj.title);
-        const contloc = document.createTextNode("Location: " + obj.location);
-        const conttyp = document.createTextNode("Type: " + obj.type);
-        const contcom = document.createTextNode("Company: " + obj.company);
+          const headText = document.createTextNode("Job Title: " + obj.title);
+          const contloc = document.createTextNode("Location: " + obj.location);
+          const conttyp = document.createTextNode("Type: " + obj.type);
+          const contcom = document.createTextNode("Company: " + obj.company);
 
-        contentloc.appendChild(contloc);
-        contenttyp.appendChild(conttyp);
-        contentcom.appendChild(contcom);
-        header.appendChild(headText);
+          contentloc.appendChild(contloc);
+          contenttyp.appendChild(conttyp);
+          contentcom.appendChild(contcom);
+          header.appendChild(headText);
 
-        job.appendChild(header);
-        job.appendChild(contentloc);
-        job.appendChild(contenttyp);
-        job.appendChild(contentcom);
-        jobs.appendChild(job);
-      });
+          job.appendChild(header);
+          job.appendChild(contentloc);
+          job.appendChild(contenttyp);
+          job.appendChild(contentcom);
+          jobs.appendChild(job);
+        });
+      }
     }
   };
 }());
