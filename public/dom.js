@@ -37,8 +37,8 @@
   }
 
   function clearChildren(parent) {
-    while(parent.firstChild) {
-        parent.removeChild(parent.firstChild);
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
     }
   }
 
@@ -50,9 +50,9 @@
 
   inputField.addEventListener('keypress', (e) => {
     if (e.key == 'Enter') {
-        clearChildren(jobs);
-        e.preventDefault();
-        fetch(buildURL(), displayJobs);
+      clearChildren(jobs);
+      e.preventDefault();
+      fetch(buildURL(), displayJobs);
     }
   });
 
@@ -66,16 +66,12 @@
       const alertText = document.createTextNode('Oopsy doodle, there has been a problem');
       const bod = document.querySelector('.body');
 
-      while (alert.firstChild) {
-        alert.removeChild(alert.firstChild);
-      }
+      clearChildren(alert);
       alertHead.appendChild(alertText);
       alert.appendChild(alertHead);
     } else {
       console.log('NOT ERROR');
-      while (alert.firstChild) {
-        alert.removeChild(alert.firstChild);
-      }
+      clearChildren(alert)
       if (arr.length === 0) {
         const noresults = document.createTextNode('Sorry there are no results');
         alert.appendChild(noresults);
