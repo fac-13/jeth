@@ -69,4 +69,35 @@ test('Filtered object contains 4 properties', (t) => {
   t.end();
 });
 
+test('check if filtered data matches expected', (t) => {
+    const actual = filter([dummy[0]]);
+    const expected = [{
+        "title": "Senior Software Engineer",
+        "location": "IRVINE",
+        "type": "Full Time",
+        "company": "Amare Global",
+        "url": "http://jobs.github.com/positions/d298fc26-23c8-11e8-93b7-7517af18f83b"
+      }];
+    t.deepEqual(actual, expected, 'response should contain title, location, type, company and url - but instead got ' + actual);
+    t.end();
+});
+
+test('check if filtered data matches expected', (t) => {
+    const actual = filter([dummy[1]]);
+    const expected = [{"title": "Senior Backend Developer (PHP)",
+    "location": "Rotterdam",
+    "type": "Full Time",
+    "company": "VONQ",
+    "url": "http://jobs.github.com/positions/d3561f22-2382-11e8-93bc-c9d0d80b5c8a"}];
+    t.deepEqual(actual, expected, 'response should contain title, location, type, company and url - but instead got ' + actual);
+    t.end();
+});
+
+test('check if filtered data is an array', (t) => {
+    const actual = Array.isArray(filter(dummy));
+    const expected = true;
+    t.equal(actual, expected, 'expected true, but instead got ' + actual);
+    t.end();
+})
+
 // --- TESTING FOR THE LOGIC FUNCTIONS
