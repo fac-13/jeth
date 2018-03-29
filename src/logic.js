@@ -1,4 +1,3 @@
-const querystring = require('querystring');
 const dummy = require('./dummy');
 
 const filter = (data) => {
