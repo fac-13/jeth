@@ -1,5 +1,6 @@
 /* eslint-disable */
 (function() {
+
   const alert = document.querySelector('.alert');
   const fetch = function(url, callback) {
     const xhr = new XMLHttpRequest();
@@ -29,6 +30,7 @@
   const submitButton = document.querySelector('#js-button');
   const jobs = document.querySelector('.jobs');
 
+  inputField.focus()
   // ---- EVENT LISTENER
   // ADD EVENT LISTENER TO THE SUBMIT BUTTON, GRAB THE URL
   // CALLS THE FETCH XHR REQUEST

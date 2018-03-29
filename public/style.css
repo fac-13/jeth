@@ -17,6 +17,7 @@ html {
 
 /****body styles ****/
 
+
 body {
   margin: 0;
   padding: 0;
@@ -26,8 +27,11 @@ body {
   color: #2e383f;
 }
 
+
+
 h1 {
-  color:hsl(16, 100%, 66%)
+  color:hsla(200, 100%, 10%, 0.6)
+  margin-bottom: 3.5rem;
 }
 .header__threelogos {
   display: flex;
@@ -73,18 +77,49 @@ h1 {
 }
 
 .input__field {
-  padding: 0.5rem 1rem;
+  padding: 1.3rem 0.5rem;
   border: none;
-  background-color: whitesmoke;
+  background-color: inherit;
+  height: 2rem;
+  width:45%;
+  font-size: 1.1rem;
+  font-family:futura;
+  border-bottom: 4px solid hsl(16, 100%, 66%);
+
+
+}
+
+
+.input__field:focus {
+outline: none;
+
+/* box-shadow: 0px 3px 5px hsla(200, 100%, 10%, 0.5) */
+
 }
 
 .input__button {
   font-weight: 700;
-  color: whitesmoke;
-  padding: 0.5rem;
-  background-color: #07617d;
-  border: none;
+  color: hsl(16, 100%, 66%);
+  padding: 0.5rem 1.5rem;
+  background-color: inherit;
+  border: 2px solid hsla(200, 100%, 10%, 0.6);
+  margin-left: 2.5rem;
+  font-family: futura;
+  border-radius: 3px;
+  height:2.5rem;
+
+  /* box-shadow: 0px 1px 5px hsla(200, 100%, 10%, 0.5); */
+
+
+
 }
+
+.input__button:focus{
+  outline:none;
+  box-shadow: 0px 3px 5px hsla(200, 100%, 10%, 0.5);
+
+}
+
 
 .jobs {
   padding: 2rem 0;
