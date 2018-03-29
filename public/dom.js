@@ -5,18 +5,21 @@
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
       console.log('fetch ready');
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        callback(null, response);
-      } else if (xhr.readyState === 4 && xhr.status === 500) {
-        callback(new TypeError('500 error'));
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          callback(null, response);
+        } else if (xhr.status === 500) {
+          callback(new TypeError('500 error'));
+        } else {
+          callback(new TypeError('error: ' + xhr.readyState));
+        }
       } else {
-        callback(new TypeError('error: ' + xhr.readyState));
         console.log('XHR error', xhr.readyState);
       }
-      xhr.open('GET', url, true);
-      xhr.send();
     };
+    xhr.open('GET', url, true);
+    xhr.send();
   };
 
   const inputField = document.querySelector('#js-input');
